@@ -1,0 +1,109 @@
+//to start server
+ npm i -g json-server
+ 
+
+
+// const redux=require('redux')
+// const { createStore } = require('redux');
+import redux from 'redux'
+import { createStore,applyMiddleware,combineReducers } from 'redux';
+import logger from 'redux-logger'
+import axios from "axios"
+import thunk from 'redux-thunk'
+
+
+//the stye we have defined is string so there can be typo error so defining constants can automaticaaly make you aware about
+//error and this consts must be declaerd before store
+
+
+//store creation and passing reducer
+// applyMiddleware will contain all the middleware names in its parameter
+const store=createStore(combineReducers({
+    account:AccountReducer,
+    bonus:BonusReducer
+}),applyMiddleware(logger.default,thunk.default))
+//here when logger only is put it will give error so put logger.default
+
+//this is the ouput of logger middleware it gives prev state,
+//action and next state  this states is given by logger middleware other middlewares do other functions
+// [ { amount: 2 } ]
+//  action incre @ 10:56:02.227
+//    prev state { amount: 1 }
+//    action     { type: 'incre' }
+//    next state { amount: 2 }
+// [ { amount: 2 }, { amount: 3 } ]
+//  action incre @ 10:56:04.234
+//    prev state { amount: 2 }
+//    action     { type: 'incre' }
+//    next state { amount: 3 }
+
+
+//ASYNC API CALL
+// async function getUser(){
+//     const {data}=await axios.get("http://localhost:3000/accounts/2")
+//     console.log(data)
+// }
+// getUser()
+// but we want by reducer and not just javascrit functions
+
+//firstofall store is created here we are creating store by create store but now it is not used nowadays configurestore
+//is used but for starting we are using createstore 
+//here passing reducer is compulsory
+
+//to push every state in this array
+const history=[]
+
+
+
+
+
+// function reducer(state={amount:1},action){
+//     if(action.type===incre){
+        
+//             return{ amount:state.amount+1}
+//             //immutability---the below statement is wrong bcoz by doing this the initail state is changed and
+//             //now the new state is 2 which should not be done
+//     //         return {state.amount :state.amount+1}
+//     }
+// //now making more actions
+// if(action.type===decre){
+//     return {amount:state.amount-1}
+// }
+// if(action.type===increByAmount){
+//     return{amount:state.amount+action.payload}
+// }
+//     return state
+// }
+
+
+
+
+ store.getState()  
+
+// store.subscribe(()=>console.log(store.getState()))
+
+
+
+
+
+
+
+setTimeout(()=>{
+
+//    store.dispatch(initial())
+
+//   store.dispatch(initial)
+
+// store.dispatch(getUserAcc(1))
+// store.dispatch(mahir(200))
+store.dispatch(getUserAcc(2))
+
+//    store.dispatch(vish(7)) 
+
+
+
+
+
+//but now creating an action
+// store.dispatch({type:"incre"})
+
